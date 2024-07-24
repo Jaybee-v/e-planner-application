@@ -14,7 +14,7 @@ export const Sidebar = ({ session }: Props) => {
   return (
     <div className="max-lg:hidden sticky bg-white w-[15vw] shadow">
       <nav className="flex flex-col gap-4 py-4 px-8">
-        <Link href="/admin/dashboard" className="text-lg font-medium">
+        <Link href="/" className="text-lg font-medium">
           Dashboard
         </Link>
         <Link href="/lessons" className="text-lg font-medium">

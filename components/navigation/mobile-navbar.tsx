@@ -32,19 +32,49 @@ export const MobileNavbar = ({ session }: Props) => {
           <Menu color="black" size={30} />
         </DrawerTrigger>
         <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-            <DrawerDescription>This action cannot be undone.</DrawerDescription>
-          </DrawerHeader>
           <DrawerFooter>
-            <Button>Submit</Button>
-            <DrawerClose>
-              <Button variant="outline">Cancel</Button>
-            </DrawerClose>
             {session ? (
-              <DrawerClose>
-                <LogoutBtn />
-              </DrawerClose>
+              <>
+                <DrawerClose>
+                  <Button
+                    variant="outline"
+                    className="w-3/4 mx-auto"
+                    onClick={() => router.push("/")}
+                  >
+                    Dashboard
+                  </Button>
+                </DrawerClose>
+                <DrawerClose>
+                  <Button
+                    variant="outline"
+                    className="w-3/4 mx-auto"
+                    onClick={() => router.push("/lessons")}
+                  >
+                    Les leçons
+                  </Button>
+                </DrawerClose>
+                <DrawerClose>
+                  <Button
+                    variant="outline"
+                    className="w-3/4 mx-auto"
+                    onClick={() => router.push("/instructors")}
+                  >
+                    Les moniteurs
+                  </Button>
+                </DrawerClose>
+                <DrawerClose>
+                  <Button
+                    variant="outline"
+                    className="w-3/4 mx-auto"
+                    onClick={() => router.push("/users")}
+                  >
+                    Les cavaliers
+                  </Button>
+                </DrawerClose>
+                <DrawerClose>
+                  <LogoutBtn />
+                </DrawerClose>
+              </>
             ) : (
               <DrawerClose>
                 <Button
