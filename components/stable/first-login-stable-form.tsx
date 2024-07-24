@@ -12,6 +12,7 @@ export interface StoredStable {
   name: string;
   city: string;
   zipcode: string;
+  isUsed: boolean;
 }
 
 interface Props {

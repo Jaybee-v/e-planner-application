@@ -46,7 +46,7 @@ export default async function RootLayout({
           )}
         >
           <Navbar session={session} />
-          <main className="flex items-center justify-center min-h-screen w-full">
+          <main className="flex items-center justify-center py-6 w-full">
             {children}
           </main>
           <Toaster />

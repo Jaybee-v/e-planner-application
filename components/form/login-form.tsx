@@ -66,20 +66,25 @@ export const LoginForm = () => {
   }
 
   return (
-    <div className="max-w-sm w-full">
+    <div className="max-w-sm w-full flex flex-col justify-center items-center">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col justify-center w-full space-y-4"
+          className="flex flex-col justify-center items-center w-full space-y-4"
         >
           <FormField
             control={form.control}
             name="email"
             render={({ field, formState }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <FormControl>
-                  <Input {...field} id="email" type="email" />
+                  <Input
+                    {...field}
+                    id="email"
+                    type="email"
+                    className="w-full"
+                  />
                 </FormControl>
                 <FormMessage>
                   {form.formState.errors.email?.message}
@@ -91,7 +96,7 @@ export const LoginForm = () => {
             control={form.control}
             name="password"
             render={({ field, formState }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <FormControl>
                   <Input {...field} id="password" type="password" />
@@ -102,8 +107,8 @@ export const LoginForm = () => {
               </FormItem>
             )}
           />
-          <Button className="" type="submit">
-            Submit
+          <Button className="w-full" type="submit">
+            Se connecter
           </Button>
         </form>
       </Form>

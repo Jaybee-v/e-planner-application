@@ -16,6 +16,7 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { LogoutBtn } from "../button/logout-btn";
 import { useRouter } from "next/navigation";
+import { Logo } from "../ui/logo";
 
 interface Props {
   session: AuthM | null;
@@ -25,9 +26,7 @@ export const MobileNavbar = ({ session }: Props) => {
   const router = useRouter();
   return (
     <div className="lg:hidden flex items-center justify-between h-16 px-8 bg-white sticky top-0">
-      <Link href="/">
-        <span>Equita-planner</span>
-      </Link>
+      <Logo />
       <Drawer>
         <DrawerTrigger>
           <Menu color="black" size={30} />

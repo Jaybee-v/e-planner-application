@@ -10,7 +10,7 @@ export const LogoutBtn = () => {
   const handleLogout = async (e: React.FormEvent) => {
     e.preventDefault();
     await disconnect();
-    router.push("/");
+    router.push(process.env.NEXT_PUBLIC_LP_URL as string);
   };
 
   return (

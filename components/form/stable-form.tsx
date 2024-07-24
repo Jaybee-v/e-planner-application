@@ -17,6 +17,8 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Save } from "lucide-react";
 import { StoredStable } from "../stable/first-login-stable-form";
+import { CreateStableDto } from "@/models/create/Stable";
+import StableService from "@/services/stable.service";
 
 interface Props {
   userID: string;
@@ -47,7 +49,34 @@ export const StableForm = ({ userID, storedStable }: Props) => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {}
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const newStable: CreateStableDto = {
+      id: userID,
+      name: values.name,
+      address: values.address,
+      zipcode: values.zipcode,
+      city: values.city,
+      country: values.country,
+      phone: values.phone,
+      stableStorerId: storedStable?.id || null,
+    };
+    const request = await new StableService().create(newStable);
+
+    if (request.status === "success") {
+      toast({
+        title: "Succès",
+        description: request.message,
+      });
+      router.refresh();
+    } else {
+      toast({
+        title: "Succès",
+        description: request.message,
+        variant: "destructive",
+      });
+      return;
+    }
+  }
 
   return (
     <div className="w-full">

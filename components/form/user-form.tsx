@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { z } from "zod";
 import {
   Form,
@@ -17,7 +17,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { CreateUserDto } from "@/models/create/User";
 import { useToast } from "../ui/use-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import UserService from "@/services/user.service";
 import AuthService from "@/services/auth.service";
 import { setCookie } from "@/lib/cookies-store";
@@ -37,6 +37,12 @@ const formSchema = z.object({
 });
 
 export const UserForm = () => {
+  useEffect(() => {
+    document.title = "Inscription";
+  });
+
+  const searchParams = useSearchParams();
+  const user = searchParams.get("user");
   const { toast } = useToast();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -46,7 +52,7 @@ export const UserForm = () => {
       password: "",
     },
   });
-  const [role, setRole] = React.useState<string>("");
+  const [role, setRole] = React.useState<string>(user || "");
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (role === "") {
@@ -160,7 +166,7 @@ export const UserForm = () => {
               className={`transition cursor-pointer  text-center border-2  ${
                 role === "Cavalier"
                   ? "bg-green-400 border-green-400 text-white font-bold tracking-wide"
-                  : "bg-white hover:scale-105 border-primary"
+                  : "bg-white text-primary hover:scale-105 border-primary"
               } rounded-md py-2 px-5 w-full`}
             >
               Je suis cavalier
@@ -170,7 +176,7 @@ export const UserForm = () => {
               className={`transition cursor-pointer text-center border-2 ${
                 role === "Centre équestre"
                   ? "bg-green-400 border-green-400 text-white font-bold tracking-wide"
-                  : "bg-white  hover:scale-105 border-primary"
+                  : "bg-white text-primary  hover:scale-105 border-primary"
               } rounded-md py-2 px-5 w-full`}
             >
               Je suis gérant de centre équestre / écuries

@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { LogoutBtn } from "../button/logout-btn";
 import { MobileNavbar } from "./mobile-navbar";
+import { Logo } from "../ui/logo";
 
 interface Props {
   session: AuthM | null;
@@ -10,11 +11,9 @@ interface Props {
 
 export const Navbar = ({ session }: Props) => {
   return (
-    <div className="w-full">
+    <div className="w-full bg-white">
       <section className="flex max-lg:hidden justify-between px-12 items-center h-20 sticky top-0 w-full">
-        <Link href="/">
-          <span>Equita-planner</span>
-        </Link>
+        <Logo />
         {session ? (
           <nav>
             <Link href={`/${session.role}`}>Mon espace</Link>
