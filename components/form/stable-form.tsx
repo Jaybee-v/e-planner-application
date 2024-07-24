@@ -16,7 +16,7 @@ import { useToast } from "../ui/use-toast";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Save } from "lucide-react";
-import { StoredStable } from "../stable/first-login-stable-form";
+import { StoredStable } from "./first-login-stable-form";
 import { CreateStableDto } from "@/models/create/Stable";
 import StableService from "@/services/stable.service";
 

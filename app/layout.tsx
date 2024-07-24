@@ -66,7 +66,7 @@ export default async function RootLayout({
         <Navbar session={session} />
         <main className="flex min-h-screen w-full">
           <Sidebar session={session} />
-          <section className="p-4">
+          <section className="p-4 w-full">
             {session.role === "user" ? rider : stable}
           </section>
         </main>

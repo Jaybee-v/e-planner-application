@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { StableForm } from "../form/stable-form";
+import { StableForm } from "./stable-form";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";

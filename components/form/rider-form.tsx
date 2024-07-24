@@ -181,7 +181,11 @@ export const RiderForm = ({ userID }: Props) => {
               <FormItem>
                 <FormLabel htmlFor="phone">Numéro de téléphone</FormLabel>
                 <FormControl>
-                  <Input {...field} id="phone" />
+                  <Input
+                    {...field}
+                    id="phone"
+                    placeholder="Numéro de téléphone"
+                  />
                 </FormControl>
                 <FormMessage>
                   {form.formState.errors.phone?.message}

@@ -1,5 +1,4 @@
-import { StableForm } from "@/components/form/stable-form";
-import { FirstLoginStableForm } from "@/components/stable/first-login-stable-form";
+import { FirstLoginStableForm } from "@/components/form/first-login-stable-form";
 import { AuthM } from "@/models/Auth";
 import { StableM } from "@/models/Stable";
 import AuthService from "@/services/auth.service";

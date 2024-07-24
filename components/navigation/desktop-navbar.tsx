@@ -34,9 +34,9 @@ export const DesktopNavbar = ({ session }: Props) => {
             Mes leçons
           </Link>
           <Link
-            href="/monitors"
+            href="/instructors"
             className={`h-6 rounded-xl px-2 hover:text-primary ${
-              path === "/monitors" ? "text-primary font-medium" : ""
+              path === "/instructors" ? "text-primary font-medium" : ""
             } transition`}
           >
             Mes moniteurs

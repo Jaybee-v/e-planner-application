@@ -100,6 +100,13 @@ export const UserForm = () => {
 
       router.push("/");
       router.refresh();
+    } else {
+      toast({
+        title: "Erreur",
+        description: request.message,
+        variant: "destructive",
+      });
+      return;
     }
   }
 

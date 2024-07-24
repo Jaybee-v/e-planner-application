@@ -1,4 +1,5 @@
 import { AuthM } from "@/models/Auth";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -11,6 +12,21 @@ export const Sidebar = ({ session }: Props) => {
   if (session.role === "user") return null;
 
   return (
-    <div className="max-lg:hidden sticky bg-white w-[15vw] shadow">Sidebar</div>
+    <div className="max-lg:hidden sticky bg-white w-[15vw] shadow">
+      <nav className="flex flex-col gap-4 py-4 px-8">
+        <Link href="/admin/dashboard" className="text-lg font-medium">
+          Dashboard
+        </Link>
+        <Link href="/lessons" className="text-lg font-medium">
+          Les leçons
+        </Link>
+        <Link href="/instructors" className="text-lg font-medium">
+          Les moniteurs
+        </Link>
+        <a href="/users" className="text-lg font-medium">
+          Les cavaliers
+        </a>
+      </nav>
+    </div>
   );
 };
