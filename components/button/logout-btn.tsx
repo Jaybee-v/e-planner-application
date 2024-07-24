@@ -3,6 +3,7 @@ import { disconnect } from "@/lib/cookies-store";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "../ui/button";
+import { PowerOff } from "lucide-react";
 
 export const LogoutBtn = () => {
   const router = useRouter();
@@ -16,7 +17,15 @@ export const LogoutBtn = () => {
   return (
     <div>
       <form onSubmit={(e) => handleLogout(e)}>
-        <Button type="submit">Logout</Button>
+        <Button
+          variant={"destructiveOutline"}
+          className=" items-center gap-2"
+          type="submit"
+          size={"xs"}
+        >
+          <PowerOff size={15} />
+          Se déconnecter
+        </Button>
       </form>
     </div>
   );

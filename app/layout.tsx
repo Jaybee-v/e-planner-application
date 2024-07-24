@@ -7,6 +7,7 @@ import AuthService from "@/services/auth.service";
 import { Navbar } from "@/components/navigation/navbar";
 import { redirect } from "next/navigation";
 import { AuthComponent } from "@/components/navigation/auth-component";
+import { Sidebar } from "@/components/navigation/sidebar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -58,13 +59,16 @@ export default async function RootLayout({
     <html lang="fr">
       <body
         className={cn(
-          "min-h-screen font-sans antialiased w-full bg-foreground",
+          "h-full  overflow-hidden font-sans antialiased w-full bg-foreground",
           fontSans.variable
         )}
       >
         <Navbar session={session} />
-        <main className="flex justify-center min-h-screen w-full">
-          {session.role === "user" ? rider : stable}
+        <main className="flex min-h-screen w-full">
+          <Sidebar session={session} />
+          <section className="p-4">
+            {session.role === "user" ? rider : stable}
+          </section>
         </main>
         <Toaster />
       </body>
