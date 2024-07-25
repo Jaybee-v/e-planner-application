@@ -30,12 +30,12 @@ export default async function RootLayout({
   children,
   rider,
   stable,
-  instructor,
-}: {
+}: // instructor,
+{
   children: React.ReactNode;
   rider: React.ReactNode;
   stable: React.ReactNode;
-  instructor: React.ReactNode;
+  // instructor: React.ReactNode;
 }) {
   const session = await getData();
 
@@ -73,9 +73,9 @@ export default async function RootLayout({
               ? rider
               : session.role === "stable"
               ? stable
-              : session.role === "instructor"
-              ? instructor
-              : null}
+              : // : session.role === "instructor"
+                // ? instructor
+                null}
           </section>
         </main>
         <Toaster />

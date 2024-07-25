@@ -7,6 +7,7 @@ export interface LessonM {
   date: Date;
   instructorId: string;
   maxParticipants: number;
+  participants: number;
   startTime: string;
   endTime: string;
   levelRequired: number;

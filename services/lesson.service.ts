@@ -6,10 +6,21 @@ export default class LessonService {
 
   async create(createLessonDto: CreateLessonDto) {
     try {
-      const response = await fetch(`${this.API_URL}/lessons`, {
+      const response = await fetch(`${this.API_URL}lessons`, {
         method: "POST",
         headers: await authorizationHeader(),
         body: JSON.stringify(createLessonDto),
+      }).then((res) => res.json());
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async findByHostId(hostId: string) {
+    try {
+      const response = await fetch(`${this.API_URL}lessons/stable/${hostId}`, {
+        method: "GET",
       }).then((res) => res.json());
       return response;
     } catch (error) {
