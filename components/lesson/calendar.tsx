@@ -95,20 +95,15 @@ export const MyCalendar = ({ events }: Props) => {
         </article>
       </section>
 
-      <section className="grid grid-cols-7">
+      <section className="grid grid-cols-7 bg-gray-100 pt-4">
         {days.map((d, i) => (
-          <article
-            key={d.id}
-            className={`text-center  border-gray-600 ${
-              i % 2 === 0 ? "border" : "border-b border-t"
-            }`}
-          >
+          <article key={d.id} className={`text-center font-semibold  `}>
             {d.name}
           </article>
         ))}
       </section>
 
-      <section className="grid grid-cols-7 gap-2 bg-gray-100">
+      <section className="grid grid-cols-7 gap-2 bg-gray-100 py-4">
         {eventsByDay.map((dayEvents, dayIndex) => (
           <div key={dayIndex} className="w-full  grid gap-2">
             {dayEvents.map((event, index) => (

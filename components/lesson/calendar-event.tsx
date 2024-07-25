@@ -8,10 +8,20 @@ interface Props {
 
 export const CalendarEvent = ({ event }: Props) => {
   const availablePlaces = event.maxParticipants - event.participants;
+  const numberStart = parseInt(event.startTime);
+  console.log("Number Start:", numberStart);
+  const numberEnd = parseInt(event.endTime);
+  const time = numberEnd - numberStart;
+  console.log("Time:", time);
+
   return (
     <Popover>
       <PopoverTrigger>
-        <div className="border border-gray-600 w-full">
+        <div
+          className={`shadow bg-white rounded-xl w-[94%] mx-auto hover:shadow-md transition ${
+            time === 1 ? "h-20" : time === 2 ? "h-40" : ""
+          }`}
+        >
           <article className="">{event ? ` ${event.title}` : ""}</article>
         </div>
       </PopoverTrigger>
