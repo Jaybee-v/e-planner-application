@@ -7,10 +7,12 @@ import RiderService from "@/services/rider.service";
 import React from "react";
 
 const getData = async (): Promise<RiderM | string | null> => {
-  const session: AuthM = await new AuthService().getSession();
+  const session: AuthM | null = await new AuthService().getSession();
 
   console.log(session);
-  if (session.role !== "user") return null;
+  if (session && session.role !== "user") return null;
+
+  if (!session) return null;
 
   const request = await new RiderService().getRider(session.sub);
   console.log(request);

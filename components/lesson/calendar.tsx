@@ -68,7 +68,7 @@ export const MyCalendar = ({ events }: Props) => {
 
   return (
     <div className="w-full min-h-[20px] bg-white py-4 ">
-      <section className="flex items-center justify-center gap-6">
+      <section className="flex max-lg:flex-col-reverse items-center justify-center gap-6">
         <section className="bg-white w-fit rounded-xl mb-6 shadow">
           <Calendar
             mode="single"
@@ -78,24 +78,25 @@ export const MyCalendar = ({ events }: Props) => {
             className="rounded-md border"
           />
         </section>
-        <article className="max-w-md grid gap-2">
+        <article className="max-w-md grid gap-2 max-lg:px-4">
           <h4 className="font-semibold">
             Sélectionnez le jour que vous souhaitez visualiser
           </h4>
-          <p>
+          <p className="max-lg:hidden">
             Vous pouvez sélectionner un jour <br /> Visualiser entre deux dates
           </p>
           <Button
             type="button"
             onClick={() => setDate(undefined)}
             variant={"outline"}
+            className="max-lg:hidden"
           >
             Visualiser la semaine en cours
           </Button>
         </article>
       </section>
 
-      <section className="grid grid-cols-7 bg-gray-100 pt-4">
+      <section className="grid lg:grid-cols-7 bg-gray-100 pt-4">
         {days.map((d, i) => (
           <article key={d.id} className={`text-center font-semibold  `}>
             {d.name}
@@ -103,7 +104,7 @@ export const MyCalendar = ({ events }: Props) => {
         ))}
       </section>
 
-      <section className="grid grid-cols-7 gap-2 bg-gray-100 py-4">
+      <section className="grid lg:grid-cols-7 gap-2 bg-gray-100 py-4">
         {eventsByDay.map((dayEvents, dayIndex) => (
           <div key={dayIndex} className="w-full  grid gap-2">
             {dayEvents.map((event, index) => (
