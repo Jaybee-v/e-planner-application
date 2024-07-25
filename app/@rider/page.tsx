@@ -6,10 +6,11 @@ import AuthService from "@/services/auth.service";
 import RiderService from "@/services/rider.service";
 import React from "react";
 
-const getData = async (): Promise<RiderM | string> => {
+const getData = async (): Promise<RiderM | string | null> => {
   const session: AuthM = await new AuthService().getSession();
 
   console.log(session);
+  if (session.role !== "user") return null;
 
   const request = await new RiderService().getRider(session.sub);
   console.log(request);
@@ -27,7 +28,10 @@ const getData = async (): Promise<RiderM | string> => {
 };
 
 export default async function RiderHome() {
-  const rider: RiderM | string = await getData();
+  const rider: RiderM | string | null = await getData();
+
+  if (rider === null) return null;
+
   console.log(typeof rider);
   console.log(rider);
 

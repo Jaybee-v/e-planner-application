@@ -13,7 +13,7 @@ import {
 import { Button } from "../ui/button";
 import { AuthM } from "@/models/Auth";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { BookCheck, ChartLine, Menu } from "lucide-react";
 import { LogoutBtn } from "../button/logout-btn";
 import { useRouter } from "next/navigation";
 import { Logo } from "../ui/logo";
@@ -38,19 +38,20 @@ export const MobileNavbar = ({ session }: Props) => {
                 <DrawerClose>
                   <Button
                     variant="outline"
-                    className="w-3/4 mx-auto"
+                    className="w-3/4 mx-auto gap-2"
                     onClick={() => router.push("/")}
                   >
+                    <ChartLine />
                     Dashboard
                   </Button>
                 </DrawerClose>
                 <DrawerClose>
                   <Button
                     variant="outline"
-                    className="w-3/4 mx-auto"
+                    className="w-3/4 mx-auto gap-2"
                     onClick={() => router.push("/lessons")}
                   >
-                    Les leçons
+                    <BookCheck /> Les leçons
                   </Button>
                 </DrawerClose>
                 <DrawerClose>

@@ -19,7 +19,7 @@ export const DesktopNavbar = ({ session }: Props) => {
         <nav className="flex items-center gap-6">
           <Link
             href="/"
-            className={`h-6 rounded-xl px-2 hover:text-primary ${
+            className={`h-6 rounded-xl px-2 hover:text-primary flex items-center gap-2 ${
               path === "/" ? "text-primary font-medium" : ""
             } transition`}
           >
@@ -27,7 +27,7 @@ export const DesktopNavbar = ({ session }: Props) => {
           </Link>
           <Link
             href="/lessons"
-            className={`h-6 rounded-xl px-2 hover:text-primary ${
+            className={`h-6 rounded-xl px-2 hover:text-primary flex items-center gap-2 ${
               path === "/lessons" ? "text-primary font-medium" : ""
             } transition`}
           >
@@ -35,11 +35,19 @@ export const DesktopNavbar = ({ session }: Props) => {
           </Link>
           <Link
             href="/instructors"
-            className={`h-6 rounded-xl px-2 hover:text-primary ${
+            className={`h-6 rounded-xl px-2 hover:text-primary flex items-center gap-2 ${
               path === "/instructors" ? "text-primary font-medium" : ""
             } transition`}
           >
             Mes moniteurs
+          </Link>
+          <Link
+            href="/lessons"
+            className={`h-6 rounded-xl px-2 hover:text-primary flex items-center gap-2 ${
+              path === "/lessons" ? "text-primary font-medium" : ""
+            } transition`}
+          >
+            Les leçons
           </Link>
           <LogoutBtn />
         </nav>

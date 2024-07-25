@@ -30,10 +30,12 @@ export default async function RootLayout({
   children,
   rider,
   stable,
+  instructor,
 }: {
   children: React.ReactNode;
   rider: React.ReactNode;
   stable: React.ReactNode;
+  instructor: React.ReactNode;
 }) {
   const session = await getData();
 
@@ -42,7 +44,7 @@ export default async function RootLayout({
       <html lang="fr">
         <body
           className={cn(
-            "min-h-screen bg- font-sans antialiased w-full bg-foreground",
+            "min-h-screen font-sans antialiased w-full bg-foreground",
             fontSans.variable
           )}
         >
@@ -59,15 +61,21 @@ export default async function RootLayout({
     <html lang="fr">
       <body
         className={cn(
-          "h-full  overflow-hidden font-sans antialiased w-full bg-foreground",
+          "min-h-screen font-sans antialiased w-full bg-foreground",
           fontSans.variable
         )}
       >
         <Navbar session={session} />
-        <main className="flex min-h-screen w-full">
+        <main className="flex min-h-screen  w-full">
           <Sidebar session={session} />
-          <section className="p-4 w-full">
-            {session.role === "user" ? rider : stable}
+          <section className="p-4 w-full h-full overflow-y-auto">
+            {session.role === "user"
+              ? rider
+              : session.role === "stable"
+              ? stable
+              : session.role === "instructor"
+              ? instructor
+              : null}
           </section>
         </main>
         <Toaster />
