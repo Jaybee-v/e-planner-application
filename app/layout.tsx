@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { AuthComponent } from "@/components/navigation/auth-component";
 import { Sidebar } from "@/components/navigation/sidebar";
 import { AuthM } from "@/models/Auth";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -31,12 +32,12 @@ export default async function RootLayout({
   children,
   rider,
   stable,
-}: // instructor,
-{
+  instructor,
+}: {
   children: React.ReactNode;
   rider: React.ReactNode;
   stable: React.ReactNode;
-  // instructor: React.ReactNode;
+  instructor: React.ReactNode;
 }) {
   const session = await getData();
   console.log(session);
@@ -63,22 +64,27 @@ export default async function RootLayout({
     <html lang="fr">
       <body
         className={cn(
-          "min-h-screen font-sans antialiased w-full bg-foreground",
+          "min-h-screen font-sans antialiased w-full relative",
           fontSans.variable
         )}
       >
         <Navbar session={session} />
-        <main className="flex min-h-screen  w-full">
+        <main className="flex  w-full ">
           <Sidebar session={session} />
-          <section className="p-4 w-full h-full overflow-y-auto">
+          <section
+            className={`p-4 w-full ${
+              session.role === "user" ? "max-w-6xl mx-auto" : "lg:ps-[16vw]"
+            } h-full overflow-y-auto`}
+          >
             {session.role === "user"
               ? rider
               : session.role === "stable"
               ? stable
-              : // : session.role === "instructor"
-                // ? instructor
-                null}
+              : session.role === "instructor"
+              ? instructor
+              : null}
           </section>
+          <ScrollToTop />
         </main>
         <Toaster />
       </body>

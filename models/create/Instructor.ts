@@ -3,6 +3,7 @@ export interface CreateInstructorDto {
   name: string;
   lastname: string;
   email: string;
+  color: string | null;
   phone: string;
   birthdate: string;
 }

@@ -14,10 +14,10 @@ const getData = async (): Promise<string> => {
 export default async function CreateInstructorStablePage() {
   const stableID = await getData();
   return (
-    <div className="w-full max-w-lg mx-auto bg-white drop-shadow-md p-6 rounded">
+    <div className="w-full max-w-lg mx-auto bg-white drop-shadow-md  p-4 mt-6 rounded">
       <h1 className="text-center">Gestion des Moniteurs</h1>
       <Link
-        className="flex items-center gap-2 border rounded-xl w-fit px-6 hover:bg-slate-50 group transition-all"
+        className="flex items-center gap-2 my-4 border rounded-xl w-fit px-6 hover:bg-slate-50 group transition-all"
         href="/instructors"
       >
         <ArrowLeft className="group-hover:text-orange-400" size={15} /> Retour

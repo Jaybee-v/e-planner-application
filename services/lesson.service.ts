@@ -17,11 +17,21 @@ export default class LessonService {
     }
   }
 
-  async findByHostId(hostId: string) {
+  async findByHostId(hostId: string, date: string) {
     try {
-      const response = await fetch(`${this.API_URL}lessons/stable/${hostId}`, {
-        method: "GET",
+      console.log("Host ID:", hostId);
+      console.log("Date:", new Date(date));
+
+      const response = await fetch(`${this.API_URL}lessons/stable-by-date`, {
+        method: "POST",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: hostId, date }),
       }).then((res) => res.json());
+      console.log(response.data);
+
       return response;
     } catch (error) {
       console.log(error);

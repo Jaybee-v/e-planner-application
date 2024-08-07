@@ -19,6 +19,7 @@ import { useToast } from "../ui/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formatDateToInput } from "@/lib/dates";
 import { UpdateInstructorDto } from "@/models/update/Instructor";
+import { SelectColor } from "../ui/select-color";
 
 interface Props {
   stableID: string;
@@ -34,6 +35,7 @@ const formSchema = z.object({
   lastname: z.string(),
   birthdate: z.string(),
   phone: z.string(),
+  color: z.string().optional(),
 });
 
 export const InstructorForm = ({ stableID }: Props) => {
@@ -51,6 +53,7 @@ export const InstructorForm = ({ stableID }: Props) => {
       lastname: "",
       birthdate: "",
       phone: "",
+      color: "",
     },
   });
 
@@ -72,6 +75,7 @@ export const InstructorForm = ({ stableID }: Props) => {
             formatDateToInput(new Date(instructor.birthdate).toString())
           );
           form.setValue("phone", instructor.phone);
+          form.setValue("color", instructor.color);
         }
       }
     };
@@ -87,6 +91,7 @@ export const InstructorForm = ({ stableID }: Props) => {
         lastname: values.lastname,
         birthdate: values.birthdate,
         phone: values.phone,
+        color: values.color ? values.color : "default",
       };
       const request = await new InstructorService().create(newInstructor);
       if (request.status === "success") {
@@ -224,6 +229,7 @@ export const InstructorForm = ({ stableID }: Props) => {
               </FormItem>
             )}
           />
+          <SelectColor form={form} />
           <article className="flex justify-center">
             <Button type="submit">
               {" "}

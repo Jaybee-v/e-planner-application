@@ -13,7 +13,7 @@ interface Props {
 export const DesktopNavbar = ({ session }: Props) => {
   const path = usePathname();
   return (
-    <section className="flex max-lg:hidden justify-between px-12 items-center h-20 sticky top-0 w-full">
+    <section className="flex max-lg:hidden justify-between px-12 items-center h-20 sticky top-0 w-full z-50">
       <Logo />
       {session ? (
         <nav className="flex items-center gap-6">
@@ -24,14 +24,6 @@ export const DesktopNavbar = ({ session }: Props) => {
             } transition`}
           >
             Mon espace
-          </Link>
-          <Link
-            href="/lessons"
-            className={`h-6 rounded-xl px-2 hover:text-primary flex items-center gap-2 ${
-              path === "/lessons" ? "text-primary font-medium" : ""
-            } transition`}
-          >
-            Mes leçons
           </Link>
           <Link
             href="/instructors"

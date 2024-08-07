@@ -1,3 +1,5 @@
+import { StableM } from "./Stable";
+
 export interface RiderM {
   id: string;
   name: string;
@@ -9,4 +11,9 @@ export interface RiderM {
   phone: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface RiderDataM {
+  rider: RiderM;
+  stable: StableM[];
 }

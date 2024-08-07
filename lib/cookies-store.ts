@@ -27,8 +27,8 @@ export const getSession = async () => {
 export const authorizationHeader = () => {
   const session = cookies().get("session");
   const headers = {
-    Authorization: session ? `Bearer ${session.value}` : "",
     "Content-Type": "application/json",
+    Authorization: session ? `Bearer ${session.value}` : "",
   };
   return headers;
 };

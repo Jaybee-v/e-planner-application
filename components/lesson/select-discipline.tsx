@@ -30,7 +30,11 @@ export const SelectDiscipline = ({ form }: Props) => {
           <FormItem>
             <FormLabel htmlFor="type">Discipline</FormLabel>
             <FormControl>
-              <Select>
+              <Select
+                onValueChange={(value) => {
+                  form.setValue("type", value);
+                }}
+              >
                 <SelectTrigger className="w-[250px]">
                   <SelectValue placeholder="Définissez la discipline ..." />
                 </SelectTrigger>

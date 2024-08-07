@@ -22,42 +22,46 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "../ui/button";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { CreateLessonDto } from "@/models/create/Lesson";
+import LessonService from "@/services/lesson.service";
+import { useToast } from "../ui/use-toast";
+import { SelectInstructor } from "../stable/select-instructor";
 
 interface Props {
   hostID: string;
 }
 
 const formSchema = z.object({
-  hostId: z.string(),
-  title: z.string(),
   type: z.string({
     required_error: "Veuillez choisir une discipline",
   }),
   description: z.string(),
   date: z.string(),
   instructorId: z.string(),
-  maxParticipants: z.number(),
+  maxParticipants: z.string(),
   startTime: z.string(),
   endTime: z.string(),
   levelRequired: z.number(),
 });
 
 export const LessonForm = ({ hostID }: Props) => {
+  const { toast } = useToast();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const l = searchParams.get("l");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      hostId: hostID,
-      title: "",
       type: "",
       description: "",
       date: "",
       instructorId: "",
-      maxParticipants: 0,
+      maxParticipants: "10",
       startTime: "",
       endTime: "",
       levelRequired: 0,
@@ -66,6 +70,34 @@ export const LessonForm = ({ hostID }: Props) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
+
+    console.log(values);
+    const newLesson: CreateLessonDto = {
+      hostId: hostID,
+      type: values.type,
+      description: values.description,
+      date: new Date(values.date),
+      instructorId: values.instructorId,
+      maxParticipants: parseInt(values.maxParticipants),
+      startTime: values.startTime,
+      endTime: values.endTime,
+      levelRequired: values.levelRequired,
+    };
+    const request = await new LessonService().create(newLesson);
+    if (request.status === "success") {
+      toast({
+        title: "Nouvelle leçon créée",
+        description: request.message,
+      });
+      router.push("/lessons");
+      router.refresh();
+    } else {
+      toast({
+        title: "Erreur",
+        description: request.message,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -73,25 +105,15 @@ export const LessonForm = ({ hostID }: Props) => {
       <h1 className="text-center">
         {!l ? "Créer une nouvelle leçon" : "Modifier la leçon"}
       </h1>
+      <Link
+        className="flex items-center gap-2 my-4 border rounded-xl w-fit px-6 hover:bg-slate-50 group transition-all"
+        href="/lessons"
+      >
+        <ArrowLeft className="group-hover:text-orange-400" size={15} /> Retour
+        aux leçons
+      </Link>
       <Form {...form}>
-        <form className="grid gap-2">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field, formState }) => (
-              <FormItem>
-                <FormLabel htmlFor="email">Titre pour la leçon</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    id="title"
-                    placeholder="Donnez un titre à la leçon ..."
-                  />
-                </FormControl>
-                <FormMessage>{formState.errors.title?.message}</FormMessage>
-              </FormItem>
-            )}
-          />
+        <form className="grid gap-2" onSubmit={form.handleSubmit(onSubmit)}>
           <section className="lg:flex items-center gap-4">
             <SelectDiscipline form={form} />
             <FormField
@@ -103,12 +125,24 @@ export const LessonForm = ({ hostID }: Props) => {
                     Nombre de participants maximal
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      type="number"
-                      id="maxParticipants"
-                      className="max-w-[150px]"
-                    />
+                    <Select
+                      onValueChange={(value) => {
+                        form.setValue("maxParticipants", value);
+                      }}
+                    >
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Définissez la discipline ..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100].map((c, i) => (
+                          <SelectItem value={c.toString()} key={"number_" + i}>
+                            <article className={`rounded-full`}>
+                              {c === 100 ? "Pas de limite" : c}
+                            </article>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage>
                     {formState.errors.maxParticipants?.message}
@@ -206,7 +240,9 @@ export const LessonForm = ({ hostID }: Props) => {
                   niveaux.
                 </FormDescription>
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    form.setValue("levelRequired", parseInt(value));
+                  }}
                   defaultValue={field.value.toString()}
                 >
                   <FormControl>
@@ -228,6 +264,7 @@ export const LessonForm = ({ hostID }: Props) => {
               </FormItem>
             )}
           />
+          <SelectInstructor form={form} userID={hostID} />
           <article className="flex justify-center">
             <Button type="submit">
               {!l ? "Enregistrer la leçon" : "Modifier la leçon"}

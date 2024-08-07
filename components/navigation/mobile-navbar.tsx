@@ -33,7 +33,7 @@ export const MobileNavbar = ({ session }: Props) => {
         </DrawerTrigger>
         <DrawerContent>
           <DrawerFooter>
-            {session ? (
+            {session && session.role === "stable" ? (
               <>
                 <DrawerClose>
                   <Button
@@ -70,6 +70,28 @@ export const MobileNavbar = ({ session }: Props) => {
                     onClick={() => router.push("/users")}
                   >
                     Les cavaliers
+                  </Button>
+                </DrawerClose>
+                <DrawerClose>
+                  <LogoutBtn />
+                </DrawerClose>
+              </>
+            ) : session && session.role === "user" ? (
+              <>
+                <DrawerClose>
+                  <Button
+                    variant="outline"
+                    onClick={() => router.push("/auth/login")}
+                  >
+                    czedc
+                  </Button>
+                </DrawerClose>
+                <DrawerClose>
+                  <Button
+                    variant="outline"
+                    onClick={() => router.push("/auth/login")}
+                  >
+                    czedc
                   </Button>
                 </DrawerClose>
                 <DrawerClose>

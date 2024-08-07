@@ -9,7 +9,7 @@ interface Props {
 
 export const Navbar = ({ session }: Props) => {
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-white shadow sticky top-0 z-50">
       <DesktopNavbar session={session} />
       <MobileNavbar session={session} />
     </div>

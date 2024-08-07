@@ -1,12 +1,14 @@
-import { LogoutBtn } from "@/components/button/logout-btn";
+import { OrganizationChoice } from "@/components/form/organization-choice";
 import { RiderForm } from "@/components/form/rider-form";
 import { AuthM } from "@/models/Auth";
-import { RiderM } from "@/models/Rider";
+import { RiderDataM, RiderM } from "@/models/Rider";
+import { StableM } from "@/models/Stable";
 import AuthService from "@/services/auth.service";
+import OrganizationService from "@/services/organization.service";
 import RiderService from "@/services/rider.service";
 import React from "react";
 
-const getData = async (): Promise<RiderM | string | null> => {
+const getData = async (): Promise<RiderDataM | string | null> => {
   const session: AuthM | null = await new AuthService().getSession();
 
   console.log(session);
@@ -20,9 +22,14 @@ const getData = async (): Promise<RiderM | string | null> => {
   if (request.status === "success") {
     console.log(request);
 
-    const rider = request.data;
+    const rider: RiderM = request.data;
     console.log(rider);
-    return rider as RiderM;
+    const requestOrganizations = await new OrganizationService().findByRiderId(
+      session.sub
+    );
+    console.log(requestOrganizations);
+    const stables: StableM[] = requestOrganizations.data;
+    return { rider: rider, stable: stables };
   }
   console.log(session);
 
@@ -30,12 +37,11 @@ const getData = async (): Promise<RiderM | string | null> => {
 };
 
 export default async function RiderHome() {
-  const rider: RiderM | string | null = await getData();
+  const rider: RiderDataM | string | null = await getData();
 
   if (rider === null) return null;
 
   console.log(typeof rider);
-  console.log(rider);
 
   if (typeof rider === "string")
     return (
@@ -46,12 +52,16 @@ export default async function RiderHome() {
       </div>
     );
 
+  console.log(rider.stable.length);
   return (
-    <div className="text-white">
-      <section>
-        <LogoutBtn />
-      </section>
-      {JSON.stringify(rider)}
+    <div className="">
+      {rider && rider.stable.length === 0 ? (
+        <>
+          <OrganizationChoice userID={rider.rider.id} />
+        </>
+      ) : (
+        <section>Une écurie trouvée</section>
+      )}
     </div>
   );
 }

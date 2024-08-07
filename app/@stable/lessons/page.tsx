@@ -1,22 +1,28 @@
 import { AddBtn } from "@/components/button/add-btn";
 import { MyCalendar } from "@/components/lesson/calendar";
-import { LessonM } from "@/models/Lesson";
+import { LessonM, LessonTableM } from "@/models/Lesson";
 import AuthService from "@/services/auth.service";
 import LessonService from "@/services/lesson.service";
 import React from "react";
 
-const getData = async (): Promise<LessonM[]> => {
+const getData = async (): Promise<{
+  events: LessonTableM[];
+  userID: string;
+}> => {
   const session = await new AuthService().getSession();
+
   const userID = session?.sub;
+
   console.log(userID);
-  const request = await new LessonService().findByHostId(userID);
+  const today = new Date().toString();
+  const request = await new LessonService().findByHostId(userID, today);
   console.log(request);
 
-  return request.data;
+  return { events: request.data, userID: userID };
 };
 
 export default async function LessonsStablePage() {
-  const events = await getData();
+  const { events, userID } = await getData();
 
   console.log(events);
 
@@ -26,7 +32,7 @@ export default async function LessonsStablePage() {
         <h1>Gérer vos leçons</h1>
         <AddBtn url="/lessons/create" label="Créer une leçon" />
       </article>
-      {events ? <MyCalendar events={events} /> : null}
+      {events ? <MyCalendar events={events} userID={userID} /> : null}
     </div>
   );
 }

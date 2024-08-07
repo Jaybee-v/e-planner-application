@@ -4,15 +4,18 @@ import React from "react";
 
 const getData = async (): Promise<string> => {
   const session = await new AuthService().getSession();
-  const hostID = session?.user?.sub;
+  const hostID = session?.sub;
+  console.log(session);
 
   return hostID as string;
 };
 
 export default async function CreateLessonStablePage() {
   const hostID = await getData();
+  console.log("Host ID:", hostID);
+
   return (
-    <div className="max-w-xl w-full mx-auto bg-white py-2 px-4 rounded drop-shadow-md">
+    <div className="max-w-xl w-full mx-auto bg-white mt-6 p-4 rounded drop-shadow-md">
       <LessonForm hostID={hostID} />
     </div>
   );

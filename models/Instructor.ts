@@ -5,6 +5,7 @@ export interface InstructorM {
   birthdate: Date;
   phone: string;
   stableId: string;
+  color: string;
   createdAt: Date;
   updatedAt: Date;
 }

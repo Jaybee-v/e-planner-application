@@ -1,28 +1,42 @@
 import React from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { LessonM } from "@/models/Lesson";
+import { LessonM, LessonTableM } from "@/models/Lesson";
 
 interface Props {
-  event: LessonM;
+  event: LessonTableM;
 }
 
 export const CalendarEvent = ({ event }: Props) => {
-  const availablePlaces = event.maxParticipants - event.participants;
-  const numberStart = parseInt(event.startTime);
-  console.log("Number Start:", numberStart);
-  const numberEnd = parseInt(event.endTime);
-  const time = numberEnd - numberStart;
-  console.log("Time:", time);
+  console.log("Event:", event.instructor.color);
 
   return (
     <Popover>
       <PopoverTrigger>
         <div
-          className={`shadow bg-white rounded-xl w-[94%] mx-auto hover:shadow-md transition ${
-            time === 1 ? "h-20" : time === 2 ? "h-40" : ""
-          }`}
+          className={`shadow  ${
+            event.instructor.color === "default"
+              ? "bg-white"
+              : ` ${event.instructor.color}  bg-opacity-30`
+          } rounded-xl w-full mx-auto p-4 flex flex-col justify-evenly hover:shadow-md transition h-40`}
         >
-          <article className="">{event ? ` ${event.title}` : ""}</article>
+          <article className="font-black tracking-wider">
+            {event ? ` ${event.type}` : ""}
+          </article>
+          <p>
+            {event.startTime} - {event.endTime}
+          </p>
+          <p className="text-right text-sm">
+            Places :{" "}
+            {event.maxParticipants - event.participantsIdentity.length > 1
+              ? event.maxParticipants -
+                event.participantsIdentity.length +
+                " libres"
+              : event.maxParticipants - event.participantsIdentity.length === 1
+              ? event.maxParticipants -
+                event.participantsIdentity.length +
+                " libre"
+              : "Plein"}
+          </p>
         </div>
       </PopoverTrigger>
       <PopoverContent className="w-80">
@@ -31,10 +45,19 @@ export const CalendarEvent = ({ event }: Props) => {
           <h2 className="text-center">
             {event.startTime} - {event.endTime}
           </h2>
-
-          <p>
-            Places disponibles: <span>{availablePlaces}</span>
-          </p>
+          <section>
+            {event.participantsIdentity.length > 0 ? (
+              <div>
+                {event.participantsIdentity.map((participant, index) => (
+                  <article key={`participant_${event.hostId}_${index}`}>
+                    {participant.name}
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <article>Aucun participant inscrit</article>
+            )}
+          </section>
         </section>
       </PopoverContent>
     </Popover>

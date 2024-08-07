@@ -33,6 +33,22 @@ export default class StableService {
     }
   }
 
+  async findAllByZip(zipcode: string) {
+    try {
+      const request = await fetch(
+        `${this.API_URL}stable/registered/${zipcode}`,
+        {
+          method: "GET",
+          headers: await authorizationHeader(),
+        }
+      ).then((res) => res.json());
+      console.log(request);
+      return request;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async findStableById(id: string) {
     try {
       const request = await fetch(`${this.API_URL}stable/${id}`, {

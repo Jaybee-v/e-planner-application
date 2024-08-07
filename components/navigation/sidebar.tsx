@@ -14,7 +14,7 @@ export const Sidebar = ({ session }: Props) => {
   if (session.role === "user") return null;
 
   return (
-    <div className="max-lg:hidden sticky bg-white w-[15vw] shadow">
+    <div className="max-lg:hidden fixed h-full top-20 bg-white w-[15vw] shadow">
       <nav className="flex flex-col gap-4 py-4 px-8">
         <Link href="/" className="text-lg font-medium flex items-center gap-2">
           <ChartLine /> Dashboard
