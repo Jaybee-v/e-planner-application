@@ -1,7 +1,6 @@
 "use client";
 import StableService from "@/services/stable.service";
 import React, { useState } from "react";
-import { StoredStable } from "./first-login-stable-form";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";

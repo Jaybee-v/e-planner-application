@@ -1,8 +1,9 @@
 import { OrganizationChoice } from "@/components/form/organization-choice";
 import { RiderForm } from "@/components/form/rider-form";
+import { MiniStableCard } from "@/components/stable/mini-stable-card";
 import { AuthM } from "@/models/Auth";
 import { RiderDataM, RiderM } from "@/models/Rider";
-import { StableM } from "@/models/Stable";
+import { RiderAndStableM } from "@/models/Stable";
 import AuthService from "@/services/auth.service";
 import OrganizationService from "@/services/organization.service";
 import RiderService from "@/services/rider.service";
@@ -28,7 +29,7 @@ const getData = async (): Promise<RiderDataM | string | null> => {
       session.sub
     );
     console.log(requestOrganizations);
-    const stables: StableM[] = requestOrganizations.data;
+    const stables: RiderAndStableM[] = requestOrganizations.data;
     return { rider: rider, stable: stables };
   }
   console.log(session);
@@ -60,7 +61,9 @@ export default async function RiderHome() {
           <OrganizationChoice userID={rider.rider.id} />
         </>
       ) : (
-        <section>Une écurie trouvée</section>
+        <section>
+          <MiniStableCard stables={rider.stable} />
+        </section>
       )}
     </div>
   );

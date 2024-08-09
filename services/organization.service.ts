@@ -31,4 +31,19 @@ export default class OrganizationService {
       console.log(error);
     }
   }
+
+  async findByStableId(stableId: string) {
+    try {
+      const response = await fetch(
+        `${this.API_URL}organizations/by-stable/${stableId}`,
+        {
+          method: "GET",
+          headers: await authorizationHeader(),
+        }
+      ).then((res) => res.json());
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
