@@ -46,4 +46,24 @@ export default class OrganizationService {
       console.log(error);
     }
   }
+
+  async updateByStable(data: {
+    stableID: string;
+    riderID: string;
+    value: number;
+  }) {
+    try {
+      const response = await fetch(
+        `${this.API_URL}organizations/action-on-rider`,
+        {
+          method: "PATCH",
+          headers: await authorizationHeader(),
+          body: JSON.stringify(data),
+        }
+      ).then((res) => res.json());
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
